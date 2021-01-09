@@ -1,9 +1,9 @@
 <?php
 require_once "conexao.php";
 
-function inserirUsuario ($nome, $email, $sexo, $senha, $dataNacimento, $telefone) {
-    $comando = "INSERT INTO usuario (nome, email, senha, dataNascimento, telefone)
-    VALUES ('$nome', '$email', '$sexo', '$senha', '$dataNacimento', '$telefone')";
+function inserirUsuario ($cpf, $nome, $email, $sexo, $senha, $dataNascimento, $telefone, $adm) {
+    $comando = "INSERT INTO usuario (cpf, nome, email, sexo, senha, dataNascimento, telefone, adm)
+    VALUES ('$cpf', '$nome', '$email', '$sexo', '$senha', '$dataNascimento', '$telefone', '$adm')";
 
     $rodou = mysqli_query(con(), $comando);
 
@@ -29,14 +29,14 @@ function deletarUsuario ($id_usuario) {
     }
 }
 
-function atualizarUsuario ($id_usuario, $nome, $email, $sexo, $senha, $dataNacimento, $telefone) {
+function atualizarUsuario ($cpf, $nome, $email, $sexo, $senha, $dataNacimento, $telefone) {
     $comando = "UPDATE usuario SET nome = $nome,
     email = $email,
     sexo = $sexo,
     senha = $senha,
     dataNascimento = $dataNascimento,
     telefone = $telefone
-    WHERE id_usuario = $id_usuario";
+    WHERE id_usuario = $cpf";
 
     $rodou = mysqli_query(con(), $comando);
 

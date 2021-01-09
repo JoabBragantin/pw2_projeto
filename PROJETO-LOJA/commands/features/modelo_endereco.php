@@ -1,9 +1,9 @@
 <?php
 require_once "conexao.php";
 
-function inserirEndereco ($id_usuario, $rua, $numero, $bairro, $cep) {
-    $comando = "INSERT INTO usuario (id_usuario, rua, numero, bairro, cep)
-    VALUES ('$id_usuario', '$rua', '$numero', '$bairro', '$cep')";
+function inserirEndereco ($cpf, $pais, $estado, $cidade, $rua, $numero, $cep) {
+    $comando = "INSERT INTO endereco (cpf, pais, estado, cidade, rua, numero, cep)
+    VALUES ('$cpf', '$pais', '$estado', '$cidade', '$rua', '$numero', '$cep')";
 
     $rodou = mysqli_query(con(), $comando);
 
@@ -29,11 +29,13 @@ function deletarEndereco ($id_endereco) {
     }
 }
 
-function atualizarEndereco ($id_endereco, $id_usuario, $rua, $numero, $bairro, $cep) {
-    $comando = "UPDATE endereco SET id_usuario = $id_usuario,
+function atualizarEndereco ($id_endereco, $cpf, $pais, $estado, $cidade, $rua, $numero, $cep) {
+    $comando = "UPDATE endereco SET cpf = $cpf,
+    pais = $pais,
+    estado = $estado,
+    cidade = $cidade,
     rua = $rua,
     numero = $numero,
-    bairro = $bairro,
     cep = $cep
     WHERE id_endereco = $id_endereco";
 
