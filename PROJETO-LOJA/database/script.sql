@@ -22,3 +22,23 @@ CREATE TABLE endereco (
     PRIMARY KEY(id_endereco),
     FOREIGN KEY(cpf) REFERENCES usuario (cpf)
 );
+
+CREATE TABLE categoria(
+    idCategoria INT NOT NULL AUTO_INCREMENT,
+    descricao VARCHAR (60) NOT NULL,
+    PRIMARY KEY (idCategoria)
+);
+
+CREATE TABLE produto(
+    idProduto INT (11) NOT NULL AUTO_INCREMENT,
+    idCategoria INT NOT NULL,
+    preco DOUBLE NOT NULL,
+    nomeProduto VARCHAR (30) NOT NULL,
+    descricao VARCHAR (60) NOT NULL,
+    imagem VARCHAR (60) NOT NULL,
+    estoque_minimo INT (11) NOT NULL,
+    estoque_maximo INT (11) NOT NULL,
+    quant_estoque INTEGER NOT NULL,
+    PRIMARY KEY (idProduto),
+    FOREIGN KEY (idCategoria) REFERENCES categoria (idCategoria)
+);
