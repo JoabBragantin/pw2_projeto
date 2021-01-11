@@ -23,8 +23,7 @@ function detalharUsuario ($id_usuario) {
 }
 
 function detalharUsuarioJoinEndereco($id_aluno) {
-    $comando = "SELECT u.nome, u.email, u.cpf, u.sexo, u.dataNascimento, u.telefone, e.pais, e.estado, e.cidade, e.rua
-    , e.numero, e.cep FROM usuario AS u JOIN endereco AS e ON u.cpf = e.cpf WHERE u.cpf = $id_aluno";
+    $comando = "SELECT u.nome, u.adm, u.email, u.cpf, u.sexo, u.dataNascimento, u.telefone, e.id_endereco, e.pais, e.estado, e.cidade, e.rua, e.numero, e.cep FROM usuario AS u JOIN endereco AS e ON u.cpf = e.cpf WHERE u.cpf = $id_aluno";
     $result = mysqli_query(con(), $comando);
     $linha = mysqli_fetch_assoc($result);
 
@@ -50,14 +49,17 @@ function deletarUsuario ($id_usuario) {
     }
 }
 
-function atualizarUsuario ($cpf, $nome, $email, $sexo, $senha, $dataNacimento, $telefone) {
+
+function atualizarUsuario ($cpf1, $cpf2, $nome, $email, $sexo, $senha, $dataNascimento, $telefone, $adm) {
     $comando = "UPDATE usuario SET nome = $nome,
+    cpf = $cpf2,
     email = $email,
     sexo = $sexo,
     senha = $senha,
     dataNascimento = $dataNascimento,
-    telefone = $telefone
-    WHERE id_usuario = $cpf";
+    telefone = $telefone,
+    adm = $adm
+    WHERE cpf = $cpf1";
 
     $rodou = mysqli_query(con(), $comando);
 

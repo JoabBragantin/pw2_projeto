@@ -33,6 +33,11 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <?php
+    require_once('commands/features/modelo_usuario.php');
+    session_start();
+
+    ?>
   </head>
   <body>
    
@@ -116,7 +121,7 @@
                         <li><a href="cart.html">Cart</a></li>
                         <li><a href="#">Checkout</a></li>
                         <li><a href="login.html">Login</a></li>
-                        <li class="active"><a href="sign-up.html">SIgn up</a></li>
+                        <li class="active"><a href="sign-up.html">Upadate</a></li>
                         <li><a href="#">Category</a></li>
                         <li><a href="#">Others</a></li>
                         <li><a href="#">Contact</a></li>
@@ -131,7 +136,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-bit-title text-center">
-                        <h2>Registration area</h2>
+                        <h2>Update area</h2>
                     </div>
                 </div>
             </div>
@@ -247,7 +252,11 @@
                                 <div class="clear"></div>
                             </form>
 
-                            <form enctype="multipart/form-data" action="commands/insertUser.php" class="checkout" method="post" name="checkout">
+                            <?php
+                                $linha = detalharUsuarioJoinEndereco($_SESSION['cpf_usuario']);
+                            ?>
+
+                            <form enctype="multipart/form-data" action="commands/updateUser.php" class="checkout" method="post" name="checkout">
 
                                 <div id="customer_details" class="col2-set">
                                     <div class="col-1">
@@ -508,27 +517,38 @@
                                             <p id="billing_first_name_field" class="form-row form-row-first validate-required">
                                                 <label class="" for="billing_first_name">Full Name <abbr title="required" class="required">*</abbr>
                                                 </label>
-                                                <input type="text" value="" placeholder="" id="billing_first_name" name="full_name" class="input-text ">
+                                                <input type="text" value="<?=$linha['nome']?>" placeholder="" id="billing_first_name" name="full_name" class="input-text ">
                                             </p>
 
                                             <p id="billing_first_name_field" class="form-row form-row-first validate-required">
                                                 <label class="" for="billing_first_name">CPF <abbr title="required" class="required">*</abbr>
                                                 </label>
-                                                <input type="text" value="" placeholder="" id="billing_first_name" name="cpf" class="input-text ">
+                                                <input type="text" value="<?=$linha['cpf']?>" placeholder="" id="billing_first_name" name="cpf" class="input-text ">
                                             </p>
 
                                             <div class="clear"></div>
 
+                                            <?php
+                                                $checkM = '';
+                                                $checkF = '';
+
+                                                if ($linha['sexo'] == 'M') {
+                                                    $checkM = 'checked';
+                                                } else {
+                                                    $checkF = 'checked';
+                                                }
+                                            ?>
+
                                             <p id="billing_company_field" class="form-row form-row-wide">
                                                 <label class="" for="billing_company">Gender</label>
-                                                M <input type="radio" value="M" placeholder="" id="billing_company" name="gender" class="input-text ">
-                                                F <input type="radio" value="F" placeholder="" id="billing_company" name="gender" class="input-text ">
+                                                M <input type="radio" value="M" placeholder="" id="billing_company" name="gender" class="input-text " <?=$checkM?>>
+                                                F <input type="radio" value="F" placeholder="" id="billing_company" name="gender" class="input-text " <?=$checkF?>>
                                             </p>
 
                                             <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
                                                 <label class="" for="billing_address_1">Birthday <abbr title="required" class="required">*</abbr>
                                                 </label>
-                                                <input type="date" value="" placeholder="" id="billing_address_1" name="birthday" class="input-text ">
+                                                <input type="date" value="<?=$linha['dataNascimento']?>" placeholder="" id="billing_address_1" name="birthday" class="input-text ">
                                             </p>
 
                                             <div class="clear"></div>
@@ -536,13 +556,13 @@
                                             <p id="billing_email_field" class="form-row form-row-first validate-required validate-email">
                                                 <label class="" for="billing_email">Email Address <abbr title="required" class="required">*</abbr>
                                                 </label>
-                                                <input type="text" value="" placeholder="" id="billing_email" name="email" class="input-text ">
+                                                <input type="text" value="<?=$linha['email']?>" placeholder="" id="billing_email" name="email" class="input-text ">
                                             </p>
 
                                             <p id="billing_phone_field" class="form-row form-row-last validate-required validate-phone">
                                                 <label class="" for="billing_phone">Phone <abbr title="required" class="required">*</abbr>
                                                 </label>
-                                                <input type="text" value="" placeholder="" id="billing_phone" name="phone" class="input-text ">
+                                                <input type="text" value="<?=$linha['telefone']?>" placeholder="" id="billing_phone" name="phone" class="input-text ">
                                             </p>
                                             <div class="clear"></div>
 
@@ -552,7 +572,7 @@
                                                 <p id="account_password_field" class="form-row validate-required">
                                                     <label class="" for="account_password">Account password <abbr title="required" class="required">*</abbr>
                                                     </label>
-                                                    <input type="password" value="" placeholder="Password" id="account_password" name="account_password" class="input-text">
+                                                    <input type="password" value="<?=$linha['senha']?>" placeholder="Password" id="account_password" name="account_password" class="input-text">
                                                 </p>
                                                 <div class="clear"></div>
                                             </div>
@@ -560,12 +580,23 @@
                                         </div>
                                     </div>
 
+                                    <?php
+                                        $adminY = '';
+                                        $adminN = '';
+
+                                        if ($linha['adm'] == 1) {
+                                            $adminY = 'checked';
+                                        } else {
+                                            $adminN = 'checked';
+                                        }
+                                    ?>
+
                                     <div class="col-2">
                                         <div class="woocommerce-shipping-fields">
                                             <h3 id="ship-to-different-address">
                         <label class="checkbox" for="ship-to-different-address-checkbox">Are you an admin?</label>
-                        //yes <input type="radio" value="1" placeholder="" id="billing_company" name="admin_account" class="input-text ">
-                        no <input type="radio" value="0" placeholder="" id="billing_company" name="admin_account" class="input-text " >
+                        //yes <input type="radio" value="1" placeholder="" id="billing_company" name="admin_account" class="input-text " <?=$adminY?>>
+                        no <input type="radio" value="0" placeholder="" id="billing_company" name="admin_account" class="input-text " <?=$adminN?>>
                         </h3>
                                             <div class="shipping_address" style="display: block;">
                                                 <p id="shipping_country_field" class="form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated">
@@ -608,23 +639,23 @@
                                                 <p id="shipping_address_1_field" class="form-row form-row-wide address-field validate-required">
                                                     <label class="" for="shipping_address_1">Address <abbr title="required" class="required">*</abbr>
                                                     </label>
-                                                    <input type="text" value="" placeholder="Street address" id="shipping_address_1" name="address" class="input-text ">
+                                                    <input type="text" value="<?=$linha['rua']?>" placeholder="Street address" id="shipping_address_1" name="address" class="input-text ">
                                                 </p>
 
                                                 <p id="shipping_address_2_field" class="form-row form-row-wide address-field">
-                                                    <input type="text" value="" placeholder="Apartment, suite, unit etc. (optional)" id="shipping_address_2" name="number" class="input-text ">
+                                                    <input type="text" value="<?=$linha['numero']?>" placeholder="Apartment, suite, unit etc. (optional)" id="shipping_address_2" name="number" class="input-text ">
                                                 </p>
 
                                                 <p id="shipping_city_field" class="form-row form-row-wide address-field validate-required" data-o_class="form-row form-row-wide address-field validate-required">
                                                     <label class="" for="shipping_city">Town / City <abbr title="required" class="required">*</abbr>
                                                     </label>
-                                                    <input type="text" value="" placeholder="Town / City" id="shipping_city" name="city" class="input-text ">
+                                                    <input type="text" value="<?=$linha['cidade']?>" placeholder="Town / City" id="shipping_city" name="city" class="input-text ">
                                                 </p>
 
                                                 <p id="shipping_postcode_field" class="form-row form-row-last address-field validate-required validate-postcode" data-o_class="form-row form-row-last address-field validate-required validate-postcode">
                                                     <label class="" for="shipping_postcode">Postcode <abbr title="required" class="required">*</abbr>
                                                     </label>
-                                                    <input type="text" value="" placeholder="Postcode / Zip" id="shipping_postcode" name="postcode" class="input-text ">
+                                                    <input type="text" value="<?=$linha['cep']?>" placeholder="Postcode / Zip" id="shipping_postcode" name="postcode" class="input-text ">
                                                 </p>
 
                                                 <div class="clear"></div>

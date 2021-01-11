@@ -48,4 +48,7 @@ function atualizarEndereco ($id_endereco, $cpf, $pais, $estado, $cidade, $rua, $
     }
 }
 
+//function atualizarEndereco ($cpf, $nome, $email, $sexo, $senha, $dataNascimento, $telefone, $adm, $id_endereco, $cpf, $pais, $estado, $cidade, $rua, $numero, $cep) {
+//   $comando = "UPDATE usuario AS u JOIN endereco AS e ON u.cpf = e.cpf SET u.nome ='João', u.adm=1, u.email='joao@email.com',
+// u.cpf=222222, e.cpf=222222, u.sex='M',u.dataNascimento=3333-10-31, u.telefone=11111111, e.pais='BR', e.estado='RJ', e.cidade='Salvador', e.rua='Maria das Graces', e.numero=88, e.cep=232556 WHERE u.cpf = 666666";
 ?>

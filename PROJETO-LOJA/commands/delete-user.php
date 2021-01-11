@@ -1,13 +1,14 @@
 <?php
     require_once ('features/modelo_usuario.php');
+    require_once ('features/modelo_endereco.php');
+
 
     $cpf = $_GET['cpf'];
+    $linha = $result = detalharUsuarioJoinEndereco($cpf);
 
-    $rodou = deletarUsuario($cpf);
+    deletarEndereco ($linha['id_endereco']);
+    deletarUsuario ($cpf);
 
-    if (! $rodou) {
-        echo "Falha ao deletar o usuário";
-    } else {
-        echo "<a href='..\index.html'>Voltar para a Página Inicial</a>";
-    }
+    echo "<a href='..\index.html'>Voltar para a Página Inicial</a>";
+    
 ?>
