@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Page - Ustora Demo</title>
+    <title>Sign up Page - Ustora Demo</title>
     
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
@@ -33,6 +33,12 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <?php
+        require_once ('commands/features/modelo_usuario.php');
+        session_start();
+    ?>
+
   </head>
   <body>
    
@@ -115,8 +121,8 @@
                         <li><a href="single-product.html">Single product</a></li>
                         <li><a href="cart.html">Cart</a></li>
                         <li><a href="#">Checkout</a></li>
-                        <li class="active"><a href="login.html">Login</a></li>
-                        <li><a href="sign-up.html">SIgn up</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li class="active"><a href="sign-up.html">My Account</a></li>
                         <li><a href="#">Category</a></li>
                         <li><a href="#">Others</a></li>
                         <li><a href="#">Contact</a></li>
@@ -131,7 +137,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-bit-title text-center">
-                        <h2>Login area</h2>
+                        <h2>Account Data</h2>
                     </div>
                 </div>
             </div>
@@ -247,55 +253,66 @@
                                 <div class="clear"></div>
                             </form>
 
-                            <form enctype="multipart/form-data" action="commands/selectUser.php" class="checkout" method="post" name="checkout">
+                            <?php
+                                
+                                $result = detalharUsuarioJoinEndereco($_SESSION['cpf_usuario']);
+                                
+                                echo "
+                                <table border=4>
+                                    <tr>
+                                        <th><h3>NOME</h3></th>
+                                        <th><h3>".$result['nome']."</h3></th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>EMAIL</h3</th>
+                                        <th><h3>".$result['email']."</h3</th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>CPF</h3</th>
+                                        <th><h3>".$result['cpf']."</h3</th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>SEXO</h3></th>
+                                        <th><h3>".$result['sexo']."</h3</th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>DATA DE NASCIMENTO</h3</th>
+                                        <th><h3>".$result['dataNascimento']."</h3</th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>TELEFONE</h3</th>
+                                        <th><h3>".$result['telefone']."</h3</th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>PAÍS</h3</th>
+                                        <th><h3>".$result['pais']."</h3</th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>ESTADO</h3</th>
+                                        <th><h3>".$result['estado']."</h3</th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>CIDADE</h3</th>
+                                        <th><h3>".$result['cidade']."</h3</th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>RUA</h3</th>
+                                        <th><h3>".$result['rua']."</h3</th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>NÚMERO RESIDENCIAL</h3</th>
+                                        <th><h3>".$result['numero']."</h3</th>
+                                    </tr>
+                                    <tr>
+                                        <th><h3>CEP</h3</th>
+                                        <th><h3>".$result['cep']."</h3</th>
+                                    </tr>
+                                </table>
+                                ";
 
-                                <div id="customer_details" class="col2-set">
-                                    <div class="col-1">
-                                        <div class="woocommerce-billing-fields">
-                                            <h3>Login</h3>
-
-                                            <p id="billing_email_field" class="form-row form-row-first validate-required validate-email">
-                                                <label class="" for="billing_email">Email Address <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="text" value="" placeholder="" id="billing_email" name="email" class="input-text ">
-                                            </p>
-
-                                            <div class="clear"></div>
-
-                                            <p id="billing_email_field" class="form-row form-row-first validate-required validate-email">
-                                                <label class="" for="billing_email">Password <abbr title="required" class="required">*</abbr>
-                                                </label>
-                                                <input type="password" value="" placeholder="Password" id="account_password" name="password" class="input-text">
-                                            </p>
-
-
-                                        </div>
-                                    </div>
-
-
-                                    </div>
-
-                                </div>
-
-                                <div id="order_review" style="position: relative;">
-                                   
-
-
-                                    <div id="payment">
-                                    
-
-                                        <div class="form-row place-order">
-
-                                            <input type="submit" data-value="Place order" value="Submit" id="place_order" name="woocommerce_checkout_place_order" class="button alt">
-
-
-                                        </div>
-
-                                        <div class="clear"></div>
-
-                                    </div>
-                                </div>
-                            </form>
+                                echo "<a href='update-user.php'><input type='submit' data-value='Place order' value='Editar' id='place_order' name='woocommerce_checkout_place_order' class='button alt'></a>";
+                                echo "<a href='commands\delete-user.php?cpf=".$result['cpf']."'><input type='submit' data-value='Place order' value='Deletar Conta' id='place_order' name='woocommerce_checkout_place_order' class='button alt'></a>";
+                            ?>
 
                         </div>                       
                     </div>                    

@@ -9,11 +9,30 @@ function inserirUsuario ($cpf, $nome, $email, $sexo, $senha, $dataNascimento, $t
 
     if (! $rodou) {
         return "Erro ao inserir usuário";
+    } else {
+        return $comando;
     }
 }
 
 function detalharUsuario ($id_usuario) {
-    $comando = "SELECT * FROM usuario WHERE id_usuario = $id_usuario";
+    $comando = "SELECT * FROM usuario WHERE cpf = $id_usuario";
+    $result = mysqli_query(con(), $comando);
+    $linha = mysqli_fetch_assoc($result);
+
+    return $linha;
+}
+
+function detalharUsuarioJoinEndereco($id_aluno) {
+    $comando = "SELECT u.nome, u.email, u.cpf, u.sexo, u.dataNascimento, u.telefone, e.pais, e.estado, e.cidade, e.rua
+    , e.numero, e.cep FROM usuario AS u JOIN endereco AS e ON u.cpf = e.cpf WHERE u.cpf = $id_aluno";
+    $result = mysqli_query(con(), $comando);
+    $linha = mysqli_fetch_assoc($result);
+
+    return $linha;
+}
+
+function detalharLoginUsuario ($email, $senha) {
+    $comando = "SELECT * FROM usuario WHERE email = '$email' AND senha= '$senha';";
     $result = mysqli_query(con(), $comando);
     $linha = mysqli_fetch_assoc($result);
 
@@ -21,11 +40,13 @@ function detalharUsuario ($id_usuario) {
 }
 
 function deletarUsuario ($id_usuario) {
-    $comando = "DELETE FROM usuario WHERE id_aluno = $id_aluno";
+    $comando = "DELETE FROM usuario WHERE cpf = $id_usuario";
     $result = mysqli_query(con(), $comando);
 
     if (! $result) {
         return "Erro ao excluir o usuário!";
+    } else {
+        return $result;
     }
 }
 

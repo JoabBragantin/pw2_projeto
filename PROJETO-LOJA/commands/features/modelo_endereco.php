@@ -9,6 +9,8 @@ function inserirEndereco ($cpf, $pais, $estado, $cidade, $rua, $numero, $cep) {
 
     if (! $rodou) {
         return "Erro ao inserir endereço";
+    } else {
+        return $rodou;
     }
 }
 

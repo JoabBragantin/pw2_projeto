@@ -3,7 +3,7 @@ CREATE TABLE usuario (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     sexo CHAR NOT NULL,
-    senha INTEGER NOT NULL,
+    senha VARCHAR(40) NOT NULL,
     dataNascimento DATE NOT NULL,
     telefone INTEGER NOT NULL,
     adm TINYINT NOT NULL,
@@ -41,4 +41,8 @@ CREATE TABLE produto(
     quant_estoque INTEGER NOT NULL,
     PRIMARY KEY (idProduto),
     FOREIGN KEY (idCategoria) REFERENCES categoria (idCategoria)
+<<<<<<< HEAD
 );
+=======
+);
+>>>>>>> 5b17371f5af627710a6418a3d68862f1434c6f14
