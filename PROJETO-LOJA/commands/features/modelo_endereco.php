@@ -33,10 +33,10 @@ function deletarEndereco ($id_endereco) {
 
 function atualizarEndereco ($id_endereco, $cpf, $pais, $estado, $cidade, $rua, $numero, $cep) {
     $comando = "UPDATE endereco SET cpf = $cpf,
-    pais = $pais,
-    estado = $estado,
-    cidade = $cidade,
-    rua = $rua,
+    pais = '$pais',
+    estado = '$estado',
+    cidade = '$cidade',
+    rua = '$rua',
     numero = $numero,
     cep = $cep
     WHERE id_endereco = $id_endereco";

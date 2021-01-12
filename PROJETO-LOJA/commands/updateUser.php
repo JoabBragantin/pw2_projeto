@@ -25,9 +25,11 @@ $numero = $_POST['number'];
 $cep = $_POST['postcode'];
 
 $linha = detalharUsuarioJoinEndereco($_SESSION['cpf_usuario']);
-echo $linha['id_endereco'];
+
 
 atualizarEndereco ($linha['id_endereco'], $cpf, $pais, $estado, $cidade, $rua, $numero, $cep);
 atualizarUsuario ($linha['cpf'], $cpf, $nome, $email, $sexo, $senha, $dataNascimento, $telefone, $adm);
+
+$_SESSION['cpf_usuario'] = detalharUsuarioJoinEndereco($linha['cpf']);
 
 echo "<a href='..\index.html'>Voltar para a Página Inicial</a>";

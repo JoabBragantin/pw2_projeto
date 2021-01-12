@@ -51,11 +51,11 @@ function deletarUsuario ($id_usuario) {
 
 
 function atualizarUsuario ($cpf1, $cpf2, $nome, $email, $sexo, $senha, $dataNascimento, $telefone, $adm) {
-    $comando = "UPDATE usuario SET nome = $nome,
+    $comando = "UPDATE usuario SET nome = '$nome',
     cpf = $cpf2,
-    email = $email,
-    sexo = $sexo,
-    senha = $senha,
+    email = '$email',
+    sexo = '$sexo',
+    senha = '$senha',
     dataNascimento = $dataNascimento,
     telefone = $telefone,
     adm = $adm
